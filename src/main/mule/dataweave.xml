@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="Exercises_1" doc:id="b605e82c-4e7f-4216-94b0-913738c266da" >
+		<ee:transform doc:name="Transform Message" doc:id="50ca49ed-14ac-4d35-955b-59bf9fce0523" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload map ($ + 1)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_2" doc:id="f51305a2-55cd-42de-b8db-63cf3d488275" >
+		<ee:transform doc:name="Transform Message" doc:id="c7eb3d88-7afa-4ac0-b213-faa80f3b739b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload map 
+(
+	{
+		"id": $.id
+	}
+)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_3" doc:id="30dac1ef-caa7-4c58-af1b-a7f2d05ed94d" >
+		<ee:transform doc:name="Transform Message" doc:id="24939028-e009-46a9-a82d-60a84ff1735c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload map {
+	"id": $$ + 1,
+	"name": $.name
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_4" doc:id="fb15e5e5-7145-4c20-bb46-d5a9842a12ba" >
+		<ee:transform doc:name="Transform Message" doc:id="0ed1f6e4-d033-4c34-988d-47db9af15a5f" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload map 
+{
+    "num":  $$ + 1,
+    "name": $.name ,
+    "jobs": $.jobs map ( job , index) -> (
+    	{
+    		"num": index + 1,
+    		"type": job."type"
+    	}
+    )
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_5" doc:id="ae55966a-07a3-402a-a4ab-8e87b704176f" >
+		<ee:transform doc:name="Transform Message" doc:id="e1ac793c-fa6b-4c70-ac72-c2550a2b5177" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload filter isEven($)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_6" doc:id="41de0e40-9558-4ebd-a7a7-37be617a3c02" >
+		<ee:transform doc:name="Transform Message" doc:id="2f542cd3-9ebc-4faf-b023-50e13719039e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload filter !isEven($$)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_7" doc:id="1b12d31a-94a4-481c-9a34-01c66fc8a60c" >
+		<ee:transform doc:name="Transform Message" doc:id="617d31b8-c280-44f5-91ac-0627b8ece525" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload filter ($.status != "processed")]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_8" doc:id="9712dd2e-ef14-4829-b051-6f5d7386d997" >
+		<ee:transform doc:name="Transform Message" doc:id="efec8773-8a85-449b-a114-cccd4d0b2dab" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload -- ["deleted", "processed"]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_8.2" doc:id="2e19e281-3f23-42ff-a002-46b79a4d98bc" >
+		<ee:transform doc:name="Transform Message" doc:id="1bd41ce6-a4ee-410e-b885-fbe896a579eb" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload filter ($ != "deleted" and $ != "processed" )]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_9" doc:id="e8f5c22c-7734-4c08-b478-061b71dfd4ff" >
+		<ee:transform doc:name="Transform Message" doc:id="29eef0a7-4591-4620-bcc3-23f4a4d34f83" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload mapObject ( value , index) -> { (index) : upper(value) }]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_10" doc:id="6158cabd-0c88-4ae6-8168-e6ca1639ca1e" >
+		<ee:transform doc:name="Transform Message" doc:id="437e31c5-e3cb-4019-8f68-ab4b8e7888e3" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload mapObject ( value , index ) -> { (upper(index)) : value }]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_11" doc:id="15953806-8d05-43b9-91bf-cb74059ed155" >
+		<ee:transform doc:name="Transform Message" doc:id="7ebad72b-9c30-4fba-add3-ce28d8f35a24" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json skipNullOn="everywhere"
+---
+payload mapObject ( value , index ) -> {
+	(index): value 	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_12" doc:id="85313d39-b810-4fe0-b449-003fc54dce02" >
+		<ee:transform doc:name="Transform Message" doc:id="7f05829a-c793-4f04-9f8c-95e01ce2decc" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload pluck $]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_13" doc:id="298189c6-90af-49bb-b539-7fd94fb3dada" >
+		<ee:transform doc:name="Transform Message" doc:id="0005f09c-87f2-4931-b9b9-239896dd41e4" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload pluck $$]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_14" doc:id="8e3a95e9-a6d1-4b82-b2eb-7e499ec25c80" >
+		<ee:transform doc:name="Transform Message" doc:id="4ff9f8c1-19dd-4946-8a11-2884a2ac8fcb" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload pluck { ($$) : $}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_15" doc:id="89050b67-aca9-498d-8b0b-79f225063564" >
+		<ee:transform doc:name="Transform Message" doc:id="644a4e2b-2f32-43fa-9ee6-ae18259678b7" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload pluck [ ($$) : $ ]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_16" doc:id="748cf092-1b27-4210-86aa-8998529557e5" >
+		<ee:transform doc:name="Transform Message" doc:id="6aa5f273-77c2-49e6-9a09-e5aed026731d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload groupBy ( if(($ mod 2) == 0) "even" else "odd")
+
+
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_17" doc:id="b809929e-828f-4c18-8499-29d6511bc75d" >
+		<ee:transform doc:name="Transform Message" doc:id="4eafb322-4b4a-406e-b62d-1bb7b6cee845" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+var invoices = [{ "invoiceId": 1,"amount":    100 },{ "invoiceId": 2, "amount":    200 },{ "invoiceId": 3, "amount":    300 }]
+var allocations = [{"allocationId": 1,"invoiceId": 1,"allocationAmount": 50 },{"allocationId":     2,"invoiceId": 1,"allocationAmount": 50 },{ "allocationId": 3, "invoiceId":        2,"allocationAmount": 100 },{ "allocationId":     4,"invoiceId":        2,"allocationAmount": 100 },{ "allocationId":     5,"invoiceId":        3,"allocationAmount": 150 },{ "allocationId":     6, "invoiceId":        3, "allocationAmount": 150 }]
+---
+invoices map {
+    
+    "invoiceId": $.invoiceId ,
+    "amount":    $.amount,
+    "allocations": allocations[($$ + 1*$$) to ($$ + 1*$$)+1]
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_18" doc:id="7b851c7e-46f2-42ba-b1f2-32738d7c4770" >
+		<ee:transform doc:name="Transform Message" doc:id="daa9483d-62e0-4bde-aa03-c22b8db35b46" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var groupedPayload = payload groupBy $.invoiceId
+---
+groupedPayload pluck ((value, key, index) -> {	
+    "invoiceId":  value.invoiceId[0] as Number,
+    "vendorName": value.vendorName[0],
+    "total":      value.total[0] as Number,
+    "lineItems": value map {
+    	"item" : $.lineItem,
+    	"amount": $.lineItemAmount as Number
+    }
+})]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_19" doc:id="5df42df5-f039-4d06-94e8-71e933d28165" >
+		<ee:transform doc:name="Transform Message" doc:id="05f357ee-dc3b-4fcf-8a3b-7b39e3d98f9e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload groupBy (if(sizeOf($.merchantName)>= 10) "true" else "false")]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="Exercises_20" doc:id="06294f3d-d046-45b4-a35b-f1f69dde76f4" >
+		<ee:transform doc:name="Transform Message" doc:id="293a1669-d5a0-47d4-b0c0-82e53d8acde3" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	(payload)
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

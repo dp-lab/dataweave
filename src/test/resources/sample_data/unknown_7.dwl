@@ -1,0 +1,12 @@
+[
+  "starting", 
+  "waiting", 
+  "deleted", 
+  "processing", 
+  "processed",
+  "starting", 
+  "waiting", 
+  "deleted", 
+  "processing", 
+  "processed"
+]
